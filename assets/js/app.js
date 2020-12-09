@@ -21,7 +21,7 @@ var height = svgHeight - margin.top - margin.bottom;
 // creating svg element to hold charts and add groups to
 
 var svg = d3
-.select(".chart")
+.select(".scatter")
 .append("svg")
 .attr("width", svgWidth)
 .attr("height", svgHeight);
@@ -31,6 +31,19 @@ var svg = d3
 
 var chartGroup = svg.append("g")
 .attr("transform", `translate(${margin.left, margin.top})`);
+
+
+// choosing an initial axis to load for both x and y
+
+var chosenAxisX = "poverty";
+
+var chosenAxisY = "obese";
+
+
+// fuction used to transition x axis with clicks
+
+
+
 
 
 
