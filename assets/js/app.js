@@ -70,6 +70,8 @@ function yScale(data, chosenAxisY) {
 }
 
 
+// creating the funtions that will transition the x and y axis 
+
 function renderXAxes(newXScale, xAxis) {
     var bottomAxis = d3.axisBottom(newXScale);
 
