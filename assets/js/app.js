@@ -111,11 +111,18 @@ function updateToolTip(chosenAxisX, circlesGroup) {
         label = "poverty";
     }
     else if (chosenAxisX === "Age") {
-        label = "Age (Median)"
+        label = "Age (Median)";
     }
     else {
-        label = "Household Income (Median)"
+        label = "Household Income (Median)";
     }
+
+    var toolTip = d3.tip()
+        .attr("class", "tooltip")
+        .offset([80, -60])
+        .html(function(d) {
+            return (`${d.state}<br>${label} ${d[chosenAxisX]}`)
+        })
 }
 
 
