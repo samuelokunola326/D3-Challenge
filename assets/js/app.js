@@ -92,7 +92,31 @@ function renderYAxes(newYScale, yAxis) {
     return yAxis
 }
 
+// creating a function that renders circles to be redrawn
 
+function renderCircles(circlesGroup, newXScale, chosenAxisX) {
+    circlesGroup.transition()
+        .duration(1000)
+        .attr("cx", d => newXScale(d[chosenAxisX]));
+
+    return circlesGroup;
+}
+
+
+function updateToolTip(chosenAxisX, circlesGroup) {
+
+    var label;
+
+    if (chosenAxisX === "poverty") {
+        label = "poverty";
+    }
+    else if (chosenAxisX === "Age") {
+        label = "Age (Median)"
+    }
+    else {
+        label = "Household Income (Median)"
+    }
+}
 
 
 
