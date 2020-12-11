@@ -63,7 +63,7 @@ function yScale(data, chosenAxisY) {
         d3.max(data, d => d[chosenAxisY]) * 1.2
 
         ])
-        .range([0, width]);
+        .range([height, 0]);
     
     return yLinearScale
 
