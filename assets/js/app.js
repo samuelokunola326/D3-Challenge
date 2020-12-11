@@ -110,6 +110,7 @@ function renderCirclesY(circlesGroupY, newYScale, chosenAxisY) {
     return circlesGroupY;
 }
 
+// Function used to update tool tips
 
 function updateToolTip(chosenAxisX, circlesGroupX) {
 
@@ -144,6 +145,41 @@ function updateToolTip(chosenAxisX, circlesGroupX) {
 
     return circlesGroupX;
 }
+
+
+// function updateToolTipY(chosenAxisX, circlesGroupX) {
+
+//     var label;
+
+//     if (chosenAxisX === "poverty") {
+//         label = "poverty";
+//     }
+//     else if (chosenAxisX === "Age") {
+//         label = "Age (Median)";
+//     }
+//     else {
+//         label = "Household Income (Median)";
+//     }
+
+//     var toolTip = d3.tip()
+//         .attr("class", "d3-tip")
+//         .offset([80, -60])
+//         .html(function(d) {
+//             return (`${d.state}<br>${label} ${d[chosenAxisX]}`)
+//         });
+
+//     circlesGroupX.call(toolTip);
+
+//     circlesGroupX.on("mouseover", function(data) {
+//         toolTip.show(data);
+//     })
+
+//         .on("mouseout", function(data, index) {
+//             toolTip.hide(data);
+//         });
+
+//     return circlesGroupX;
+// }
 
 
 
