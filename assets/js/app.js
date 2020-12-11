@@ -193,11 +193,13 @@ d3.csv("data/data").then(function(data, err) {
         data.obesity = +data.obesity
         data.smokes = +data.smokes
         data.heathcare = +data.heathcare
-
-
-
-        
+ 
     });
+
+
+    var xLinearScale = xScale(data, chosenAxisX);
+
+    var yLinearScale = yScale(data, chosenAxisY)
 })
 
 
