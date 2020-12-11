@@ -182,7 +182,23 @@ function updateToolTip(chosenAxisX, circlesGroupX) {
 // }
 
 
+d3.csv("data/data").then(function(data, err) {
+    if (err) throw err;
 
+
+    data.forEach(function(data) {
+        data.poverty = +data.poverty;
+        data.age = +data.age
+        data.income = +data.income
+        data.obesity = +data.obesity
+        data.smokes = +data.smokes
+        data.heathcare = +data.heathcare
+
+
+
+        
+    });
+})
 
 
 
