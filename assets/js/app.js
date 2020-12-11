@@ -92,18 +92,26 @@ function renderYAxes(newYScale, yAxis) {
     return yAxis
 }
 
-// creating a function that renders circles to be redrawn
+// creating a function that renders circles to be redrawn for both x and y axis
 
-function renderCircles(circlesGroup, newXScale, chosenAxisX) {
-    circlesGroup.transition()
+function renderCirclesX(circlesGroupX, newXScale, chosenAxisX) {
+    circlesGroupX.transition()
         .duration(1000)
         .attr("cx", d => newXScale(d[chosenAxisX]));
 
     return circlesGroup;
 }
 
+function renderCirclesY(circlesGroupY, newYScale, chosenAxisY) {
+    circlesGroupY.transition()
+        .duration(1000)
+        .attr("cx", d => newYScale(d[chosenAxisY]));
 
-function updateToolTip(chosenAxisX, circlesGroup) {
+    return circlesGroupY;
+}
+
+
+function updateToolTip(chosenAxisX, circlesGroupX) {
 
     var label;
 
@@ -123,6 +131,18 @@ function updateToolTip(chosenAxisX, circlesGroup) {
         .html(function(d) {
             return (`${d.state}<br>${label} ${d[chosenAxisX]}`)
         });
+
+    circlesGroupX.call(toolTip);
+
+    circlesGroupX.on("mouseover", function(data) {
+        toolTip.show(data);
+    })
+
+        .on("mouseout", function(data, index) {
+            toolTip.hide(data);
+        });
+
+    return circlesGroupX;
 }
 
 
