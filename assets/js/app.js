@@ -261,27 +261,27 @@ d3.csv("data/data").then(function(data, err) {
         attr("transform", `translate(${height / 2}, ${width + 20})`);
 
     
-    var povertyLabel = labelsGroup.append("text")
-        .attr("x", 0)
-        .attr("y", 20)
-        .attr("value", "poverty")
+    var obeseLabel = labelsGroup.append("text")
+        .attr("x", 20)
+        .attr("y", 0)
+        .attr("value", "obesity")
         .classed("inactivate", true)
-        .text("# poverty %")
+        .text("# Obese %")
 
 
-    var ageLabel = labelsGroup.append("text")
-        .attr("x", 0)
-        .attr("y", 40)
-        .attr("value", "age")
+    var smokesLabel = labelsGroup.append("text")
+        .attr("x", 40)
+        .attr("y", 0)
+        .attr("value", "smokes")
         .classed("inactivate", true)
-        .text("# Median Age")
+        .text("# Smokes")
 
-    var houseIncomeLabel = labelsGroup.append("text")
-        .attr("x", 0)
-        .attr("y", 60)
-        .attr("value", "income")
+    var healthcareLabel = labelsGroup.append("text")
+        .attr("x", 60)
+        .attr("y", 0)
+        .attr("value", "healthcare")
         .classed("inactivate", true)
-        .text("# Median Income")
+        .text("# Lacks Healthcare")
 
 
 
