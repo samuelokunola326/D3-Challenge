@@ -228,7 +228,7 @@ d3.csv("data/data").then(function(data, err) {
         .attr("fill", "blue")
         .attr("opacity", ".3");
 
-
+        //  Create a group for x axis lables in order to makes some changes to them
     var labelsGroup = chartGroup.append("g")
         attr("transform", `translate(${width / 2}, ${height + 20})`);
 
@@ -237,7 +237,7 @@ d3.csv("data/data").then(function(data, err) {
         .attr("x", 0)
         .attr("y", 20)
         .attr("value", "poverty")
-        .classed("inactivate", true)
+        .classed("active", true)
         .text("# poverty %")
 
 
@@ -245,42 +245,42 @@ d3.csv("data/data").then(function(data, err) {
         .attr("x", 0)
         .attr("y", 40)
         .attr("value", "age")
-        .classed("inactivate", true)
+        .classed("inactive", true)
         .text("# Median Age")
 
     var houseIncomeLabel = labelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 60)
         .attr("value", "income")
-        .classed("inactivate", true)
+        .classed("inactive", true)
         .text("# Median Income")
 
     
-    
+    //  Create a group for y axis lables in order to makes some changes to them
     var labelsGroupY = chartGroup.append("g")
         attr("transform", `translate(${height / 2}, ${width + 20})`);
 
     
-    var obeseLabel = labelsGroup.append("text")
+    var obeseLabel = labelsGroupY.append("text")
         .attr("x", 20)
         .attr("y", 0)
         .attr("value", "obesity")
-        .classed("inactivate", true)
+        .classed("active", true)
         .text("# Obese %")
 
 
-    var smokesLabel = labelsGroup.append("text")
+    var smokesLabel = labelsGroupY.append("text")
         .attr("x", 40)
         .attr("y", 0)
         .attr("value", "smokes")
-        .classed("inactivate", true)
+        .classed("inactive", true)
         .text("# Smokes")
 
-    var healthcareLabel = labelsGroup.append("text")
+    var healthcareLabel = labelsGroupY.append("text")
         .attr("x", 60)
         .attr("y", 0)
         .attr("value", "healthcare")
-        .classed("inactivate", true)
+        .classed("inactive", true)
         .text("# Lacks Healthcare")
 
 
