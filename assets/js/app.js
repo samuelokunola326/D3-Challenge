@@ -147,7 +147,7 @@ function updateToolTipX(chosenAxisX, circlesGroup) {
 }
 
 
-function updateToolTipY(chosenAxisY, circlesGroupX) {
+function updateToolTipY(chosenAxisY, circlesGroup) {
 
     var label;
 
@@ -227,6 +227,26 @@ d3.csv("data/data").then(function(data, err) {
         .attr("r", 10)
         .attr("fill", "blue")
         .attr("opacity", ".3");
+
+
+    var labelsGroup = chartGroup.append("g")
+        attr("transform", `translate(${width / 2}, ${height + 20})`);
+
+    
+    var povertyLabel = labelsGroup.append("text")
+        .attr("x", 0)
+        .attr("y", 20)
+        .attr("value", "poverty")
+        .classed("inactivate", true)
+        .text("# poverty %")
+
+
+        var ageLabel = labelsGroup.append("text")
+        .attr("x", 0)
+        .attr("y", 40)
+        .attr("value", "age")
+        .classed("inactivate", true)
+        .text("# Median Age")
 
 
 })
