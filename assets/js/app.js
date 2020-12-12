@@ -241,12 +241,55 @@ d3.csv("data/data").then(function(data, err) {
         .text("# poverty %")
 
 
-        var ageLabel = labelsGroup.append("text")
+    var ageLabel = labelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 40)
         .attr("value", "age")
         .classed("inactivate", true)
         .text("# Median Age")
+
+    var houseIncomeLabel = labelsGroup.append("text")
+        .attr("x", 0)
+        .attr("y", 60)
+        .attr("value", "income")
+        .classed("inactivate", true)
+        .text("# Median Income")
+
+    
+    
+    var labelsGroupY = chartGroup.append("g")
+        attr("transform", `translate(${height / 2}, ${width + 20})`);
+
+    
+    var povertyLabel = labelsGroup.append("text")
+        .attr("x", 0)
+        .attr("y", 20)
+        .attr("value", "poverty")
+        .classed("inactivate", true)
+        .text("# poverty %")
+
+
+    var ageLabel = labelsGroup.append("text")
+        .attr("x", 0)
+        .attr("y", 40)
+        .attr("value", "age")
+        .classed("inactivate", true)
+        .text("# Median Age")
+
+    var houseIncomeLabel = labelsGroup.append("text")
+        .attr("x", 0)
+        .attr("y", 60)
+        .attr("value", "income")
+        .classed("inactivate", true)
+        .text("# Median Income")
+
+
+
+
+    
+
+
+    
 
 
 })
