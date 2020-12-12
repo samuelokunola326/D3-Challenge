@@ -94,25 +94,25 @@ function renderYAxes(newYScale, yAxis) {
 
 // creating a function that renders circles to be redrawn for both x and y axis
 
-function renderCirclesX(circlesGroupX, newXScale, chosenAxisX) {
-    circlesGroupX.transition()
+function renderCirclesX(circlesGroup, newXScale, chosenAxisX) {
+    circlesGroup.transition()
         .duration(1000)
         .attr("cx", d => newXScale(d[chosenAxisX]));
 
     return circlesGroup;
 }
 
-function renderCirclesY(circlesGroupY, newYScale, chosenAxisY) {
-    circlesGroupY.transition()
+function renderCirclesY(circlesGroup, newYScale, chosenAxisY) {
+    circlesGroup.transition()
         .duration(1000)
         .attr("cx", d => newYScale(d[chosenAxisY]));
 
-    return circlesGroupY;
+    return circlesGroup;
 }
 
 // Function used to update tool tips
 
-function updateToolTip(chosenAxisX, circlesGroupX) {
+function updateToolTipX(chosenAxisX, circlesGroup) {
 
     var label;
 
@@ -133,9 +133,9 @@ function updateToolTip(chosenAxisX, circlesGroupX) {
             return (`${d.state}<br>${label} ${d[chosenAxisX]}`)
         });
 
-    circlesGroupX.call(toolTip);
+    circlesGroup.call(toolTip);
 
-    circlesGroupX.on("mouseover", function(data) {
+    circlesGroup.on("mouseover", function(data) {
         toolTip.show(data);
     })
 
@@ -143,43 +143,43 @@ function updateToolTip(chosenAxisX, circlesGroupX) {
             toolTip.hide(data);
         });
 
-    return circlesGroupX;
+    return circlesGroup;
 }
 
 
-// function updateToolTipY(chosenAxisX, circlesGroupX) {
+function updateToolTipY(chosenAxisY, circlesGroupX) {
 
-//     var label;
+    var label;
 
-//     if (chosenAxisX === "poverty") {
-//         label = "poverty";
-//     }
-//     else if (chosenAxisX === "Age") {
-//         label = "Age (Median)";
-//     }
-//     else {
-//         label = "Household Income (Median)";
-//     }
+    if (chosenAxisY === "obesity") {
+        label = "Obese";
+    }
+    else if (chosenAxisY === "Smokes") {
+        label = "Smokes";
+    }
+    else {
+        label = " Lacks Healthcare";
+    }
 
-//     var toolTip = d3.tip()
-//         .attr("class", "d3-tip")
-//         .offset([80, -60])
-//         .html(function(d) {
-//             return (`${d.state}<br>${label} ${d[chosenAxisX]}`)
-//         });
+    var toolTip = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([80, -60])
+        .html(function(d) {
+            return (`${d.state}<br>${label} ${d[chosenAxisY]}`)
+        });
 
-//     circlesGroupX.call(toolTip);
+    circlesGroup.call(toolTip);
 
-//     circlesGroupX.on("mouseover", function(data) {
-//         toolTip.show(data);
-//     })
+    circlesGroup.on("mouseover", function(data) {
+        toolTip.show(data);
+    })
 
-//         .on("mouseout", function(data, index) {
-//             toolTip.hide(data);
-//         });
+        .on("mouseout", function(data, index) {
+            toolTip.hide(data);
+        });
 
-//     return circlesGroupX;
-// }
+    return circlesGroup;
+}
 
 
 d3.csv("data/data").then(function(data, err) {
@@ -198,8 +198,37 @@ d3.csv("data/data").then(function(data, err) {
 
 
     var xLinearScale = xScale(data, chosenAxisX);
+    var yLinearScale = yScale(data, chosenAxisY);
 
-    var yLinearScale = yScale(data, chosenAxisY)
+    // creating initial axis 
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
+
+
+    var xAxis = chartGroup.append("g")
+        .classed("x-axis", true)
+        .attr("transform", `translate(0, ${height})`)
+        .call(bottomAxis);
+
+
+    var yAxis = chartGroup.append("g")
+        .classed("y-axis", true)
+        .attr("transform", `translate(${width}, 0)`)
+        .call(leftAxis);
+
+
+    var circlesGroup = chartGroup.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .append("text", d => text(d.abbr))
+        .attr("cx", d => xLinearScale(d[chosenAxisX]))
+        .attr("cy", d => yLinearScale(d[chosenAxisY]))
+        .attr("r", 10)
+        .attr("fill", "blue")
+        .attr("opacity", ".3");
+
+
 })
 
 
