@@ -316,7 +316,51 @@ d3.csv("data/data").then(function(data, err) {
                     // update tool tips with new info 
                     circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
 
-                    if()
+                    if(chosenAxisX === "age") {
+                        
+                        // setting font to bold based on what is clicked
+                        ageLabel
+                            .classed("active", true)
+                            .classed("inactive", false);
+
+                        povertyLabel
+                            .classed("active", false)
+                            .classed("inactive", true);
+                        
+                        houseIncomeLabel
+                            .classed("active", false)
+                            .classed("inactive", true)
+                    }
+
+                    else if (chosenAxisX === "income") {
+
+                        houseIncomeLabel
+                            .classed("active", true)
+                            .classed("inactive", false)
+
+                        povertyLabel
+                            .classed("active", false)
+                            .classed("inactive", true)
+
+                        ageLabel
+                            .classed("active", false)
+                            .classed("inactive", true);
+                    }
+
+                    else {
+
+                        povertyLabel
+                            .classed("active",true)
+                            .classed("inactive", false)
+
+                        houseIncomeLabel
+                            .classed("active", false)
+                            .classed("inactive", true)
+
+                        ageLabel
+                            .classed("active", false)
+                            .classed("inactive", true);
+                    }
 
                     
                 }
@@ -344,8 +388,56 @@ d3.csv("data/data").then(function(data, err) {
                     // update tool tips with new info 
                     circlesGroup = updateToolTipY(chosenAxisY, circlesGroup);
 
+
+                    if(chosenAxisY === "smokes") {
+                        
+                        // setting font to bold based on what is clicked
+                        smokesLabel
+                            .classed("active", true)
+                            .classed("inactive", false);
+
+                        obeseLabel
+                            .classed("active", false)
+                            .classed("inactive", true);
+                        
+                        healthcareLabel
+                            .classed("active", false)
+                            .classed("inactive", true)
+                    }
+
+                    else if (chosenAxisY === "healthcare") {
+
+                        healthcareLabel
+                            .classed("active", true)
+                            .classed("inactive", false)
+
+                        obeseLabel
+                            .classed("active", false)
+                            .classed("inactive", true)
+
+                        smokesLabel
+                            .classed("active", false)
+                            .classed("inactive", true);
+                    }
+
+                    else {
+
+                        obeseLabel
+                            .classed("active",true)
+                            .classed("inactive", false)
+
+                        smokesLabel
+                            .classed("active", false)
+                            .classed("inactive", true)
+
+                        healthcareLabel
+                            .classed("active", false)
+                            .classed("inactive", true);
+                    }
+
                     
-                } 
+                }
+
 
 
 
