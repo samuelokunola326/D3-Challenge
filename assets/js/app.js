@@ -238,7 +238,7 @@ d3.csv("data/data").then(function(data, err) {
         .attr("y", 20)
         .attr("value", "poverty")
         .classed("active", true)
-        .text("# poverty %")
+        .text("# poverty %");
 
 
     var ageLabel = labelsGroup.append("text")
@@ -246,14 +246,14 @@ d3.csv("data/data").then(function(data, err) {
         .attr("y", 40)
         .attr("value", "age")
         .classed("inactive", true)
-        .text("# Median Age")
+        .text("# Median Age");
 
     var houseIncomeLabel = labelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 60)
         .attr("value", "income")
         .classed("inactive", true)
-        .text("# Median Income")
+        .text("# Median Income");
 
     
     //  Create a group for y axis lables in order to makes some changes to them
@@ -266,7 +266,7 @@ d3.csv("data/data").then(function(data, err) {
         .attr("y", 0)
         .attr("value", "obesity")
         .classed("active", true)
-        .text("# Obese %")
+        .text("# Obese %");
 
 
     var smokesLabel = labelsGroupY.append("text")
@@ -274,14 +274,82 @@ d3.csv("data/data").then(function(data, err) {
         .attr("y", 0)
         .attr("value", "smokes")
         .classed("inactive", true)
-        .text("# Smokes")
+        .text("# Smokes");
 
     var healthcareLabel = labelsGroupY.append("text")
         .attr("x", 60)
         .attr("y", 0)
         .attr("value", "healthcare")
         .classed("inactive", true)
-        .text("# Lacks Healthcare")
+        .text("# Lacks Healthcare");
+
+
+        chartGroup.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x", 0 - (height / 2))
+            .attr("dy", "1em")
+            .classed("axis-text", true)
+            .text()
+
+        // updating tool tips for x and y 
+        var circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
+        var circlesGroup = updateToolTipY(chosenAxisY, circlesGroup);
+
+        labelsGroup.selectAll("text")
+            .on("click", function() {
+                // get value of selection 
+                var value = d3.select(this).attr("value");
+                if (value !== chosenAxisX) {
+
+                    // replace chosenAxisX with new value
+                    chosenAxisX = value;
+
+                    xLinearScale = xScale(data, chosenAxisX);
+
+                    // update x axis with transition
+                    xAxis = renderXAxes(xLinearScale, xAxis);
+
+                    // updating circles with new x values
+                    circlesGroup = renderCirclesX(circlesGroup, xLinearScale, chosenAxisX);
+
+                    // update tool tips with new info 
+                    circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
+
+                    if()
+
+                    
+                }
+
+     
+            });
+
+        labelsGroupY.selectAll("text")
+            .on("click", function() {
+                    // get value of Y selection 
+                var valueY = d3.select(this).attr("value");
+                if (valueY !== chosenAxisY) {
+
+                    // replace chosenAxisX with new value
+                    chosenAxisY = valueY;
+
+                    yLinearScale = yScale(data, chosenAxisY);
+
+                    // update x axis with transition
+                    yAxis = renderYAxes(yLinearScale, yAxis);
+
+                    // updating circles with new x values
+                    circlesGroup = renderCirclesY(circlesGroup, yLinearScale, chosenAxisY);
+
+                    // update tool tips with new info 
+                    circlesGroup = updateToolTipY(chosenAxisY, circlesGroup);
+
+                    
+                } 
+
+
+
+            });
 
 
 
