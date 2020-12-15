@@ -292,157 +292,157 @@ d3.csv("data/data").then(function(data, err) {
         .classed("axis-text", true)
         .text();
 
-        // updating tool tips for x and y 
-        var circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
-        var circlesGroup = updateToolTipY(chosenAxisY, circlesGroup);
+    // updating tool tips for x and y 
+    var circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
+    var circlesGroup = updateToolTipY(chosenAxisY, circlesGroup);
 
-        labelsGroup.selectAll("text")
-            .on("click", function() {
-                // get value of selection 
-                var value = d3.select(this).attr("value");
-                if (value !== chosenAxisX) {
+    labelsGroup.selectAll("text")
+        .on("click", function() {
+            // get value of selection 
+            var value = d3.select(this).attr("value");
+            if (value !== chosenAxisX) {
 
-                    // replace chosenAxisX with new value
-                    chosenAxisX = value;
+                // replace chosenAxisX with new value
+                chosenAxisX = value;
 
-                    xLinearScale = xScale(data, chosenAxisX);
+                xLinearScale = xScale(data, chosenAxisX);
 
-                    // update x axis with transition
-                    xAxis = renderXAxes(xLinearScale, xAxis);
+                // update x axis with transition
+                xAxis = renderXAxes(xLinearScale, xAxis);
 
-                    // updating circles with new x values
-                    circlesGroup = renderCirclesX(circlesGroup, xLinearScale, chosenAxisX);
+                // updating circles with new x values
+                circlesGroup = renderCirclesX(circlesGroup, xLinearScale, chosenAxisX);
 
-                    // update tool tips with new info 
-                    circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
+                // update tool tips with new info 
+                circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
 
-                    if(chosenAxisX === "age") {
-                        
-                        // setting font to bold based on what is clicked
-                        ageLabel
-                            .classed("active", true)
-                            .classed("inactive", false);
-
-                        povertyLabel
-                            .classed("active", false)
-                            .classed("inactive", true);
-                        
-                        houseIncomeLabel
-                            .classed("active", false)
-                            .classed("inactive", true)
-                    }
-
-                    else if (chosenAxisX === "income") {
-
-                        houseIncomeLabel
-                            .classed("active", true)
-                            .classed("inactive", false)
-
-                        povertyLabel
-                            .classed("active", false)
-                            .classed("inactive", true)
-
-                        ageLabel
-                            .classed("active", false)
-                            .classed("inactive", true);
-                    }
-
-                    else {
-
-                        povertyLabel
-                            .classed("active",true)
-                            .classed("inactive", false)
-
-                        houseIncomeLabel
-                            .classed("active", false)
-                            .classed("inactive", true)
-
-                        ageLabel
-                            .classed("active", false)
-                            .classed("inactive", true);
-                    }
-
+                if(chosenAxisX === "age") {
                     
+                    // setting font to bold based on what is clicked
+                    ageLabel
+                        .classed("active", true)
+                        .classed("inactive", false);
+
+                    povertyLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
+                    
+                    houseIncomeLabel
+                        .classed("active", false)
+                        .classed("inactive", true)
                 }
 
-     
-            });
+                else if (chosenAxisX === "income") {
 
-        labelsGroupY.selectAll("text")
-            .on("click", function() {
-                    // get value of Y selection 
-                var valueY = d3.select(this).attr("value");
-                if (valueY !== chosenAxisY) {
+                    houseIncomeLabel
+                        .classed("active", true)
+                        .classed("inactive", false)
 
-                    // replace chosenAxisX with new value
-                    chosenAxisY = valueY;
+                    povertyLabel
+                        .classed("active", false)
+                        .classed("inactive", true)
 
-                    yLinearScale = yScale(data, chosenAxisY);
-
-                    // update x axis with transition
-                    yAxis = renderYAxes(yLinearScale, yAxis);
-
-                    // updating circles with new x values
-                    circlesGroup = renderCirclesY(circlesGroup, yLinearScale, chosenAxisY);
-
-                    // update tool tips with new info 
-                    circlesGroup = updateToolTipY(chosenAxisY, circlesGroup);
-
-
-                    if(chosenAxisY === "smokes") {
-                        
-                        // setting font to bold based on what is clicked
-                        smokesLabel
-                            .classed("active", true)
-                            .classed("inactive", false);
-
-                        obeseLabel
-                            .classed("active", false)
-                            .classed("inactive", true);
-                        
-                        healthcareLabel
-                            .classed("active", false)
-                            .classed("inactive", true)
-                    }
-
-                    else if (chosenAxisY === "healthcare") {
-
-                        healthcareLabel
-                            .classed("active", true)
-                            .classed("inactive", false)
-
-                        obeseLabel
-                            .classed("active", false)
-                            .classed("inactive", true)
-
-                        smokesLabel
-                            .classed("active", false)
-                            .classed("inactive", true);
-                    }
-
-                    else {
-
-                        obeseLabel
-                            .classed("active",true)
-                            .classed("inactive", false)
-
-                        smokesLabel
-                            .classed("active", false)
-                            .classed("inactive", true)
-
-                        healthcareLabel
-                            .classed("active", false)
-                            .classed("inactive", true);
-                    }
-
-                    
+                    ageLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
                 }
 
-               
+                else {
+
+                    povertyLabel
+                        .classed("active",true)
+                        .classed("inactive", false)
+
+                    houseIncomeLabel
+                        .classed("active", false)
+                        .classed("inactive", true)
+
+                    ageLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
+                }
+
+                
+            }
+
+    
+        });
+
+    labelsGroupY.selectAll("text")
+        .on("click", function() {
+                // get value of Y selection 
+            var valueY = d3.select(this).attr("value");
+            if (valueY !== chosenAxisY) {
+
+                // replace chosenAxisX with new value
+                chosenAxisY = valueY;
+
+                yLinearScale = yScale(data, chosenAxisY);
+
+                // update x axis with transition
+                yAxis = renderYAxes(yLinearScale, yAxis);
+
+                // updating circles with new x values
+                circlesGroup = renderCirclesY(circlesGroup, yLinearScale, chosenAxisY);
+
+                // update tool tips with new info 
+                circlesGroup = updateToolTipY(chosenAxisY, circlesGroup);
+
+
+                if(chosenAxisY === "smokes") {
+                    
+                    // setting font to bold based on what is clicked
+                    smokesLabel
+                        .classed("active", true)
+                        .classed("inactive", false);
+
+                    obeseLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
+                    
+                    healthcareLabel
+                        .classed("active", false)
+                        .classed("inactive", true)
+                }
+
+                else if (chosenAxisY === "healthcare") {
+
+                    healthcareLabel
+                        .classed("active", true)
+                        .classed("inactive", false)
+
+                    obeseLabel
+                        .classed("active", false)
+                        .classed("inactive", true)
+
+                    smokesLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
+                }
+
+                else {
+
+                    obeseLabel
+                        .classed("active",true)
+                        .classed("inactive", false)
+
+                    smokesLabel
+                        .classed("active", false)
+                        .classed("inactive", true)
+
+                    healthcareLabel
+                        .classed("active", false)
+                        .classed("inactive", true);
+                }
+
+                
+            }
+
+            
 
 
 
-            });
+        });
 
 
 
