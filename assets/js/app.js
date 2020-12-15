@@ -21,7 +21,7 @@ var height = svgHeight - margin.top - margin.bottom;
 // creating svg element to hold charts and add groups to
 
 var svg = d3
-.select(".scatter")
+.select("#scatter")
 .append("svg")
 .attr("width", svgWidth)
 .attr("height", svgHeight);
@@ -284,13 +284,13 @@ d3.csv("./assets/data/data.csv").then(function(data, err) {
         .text("# Lacks Healthcare");
 
 
-    // chartGroup.append("text")
-    //     .attr("transform", "rotate(-90)")
-    //     .attr("y", 0 - margin.left)
-    //     .attr("x", 0 - (height / 2))
-    //     .attr("dy", "1em")
-    //     .classed("axis-text", true)
-    //     .text();
+    chartGroup.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .classed("axis-text", true)
+        .text();
 
     // updating tool tips for x and y 
     var circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
