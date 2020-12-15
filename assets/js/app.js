@@ -182,7 +182,7 @@ function updateToolTipY(chosenAxisY, circlesGroup) {
 }
 
 
-d3.csv("data/data").then(function(data, err) {
+d3.csv("./assets/data/data.csv").then(function(data, err) {
     if (err) throw err;
 
 
@@ -230,7 +230,7 @@ d3.csv("data/data").then(function(data, err) {
 
         //  Create a group for x axis lables in order to makes some changes to them
     var labelsGroup = chartGroup.append("g")
-        attr("transform", `translate(${width / 2}, ${height + 20})`);
+        .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
     
     var povertyLabel = labelsGroup.append("text")
@@ -258,7 +258,7 @@ d3.csv("data/data").then(function(data, err) {
     
     //  Create a group for y axis lables in order to makes some changes to them
     var labelsGroupY = chartGroup.append("g")
-        attr("transform", `translate(${height / 2}, ${width + 20})`);
+        .attr("transform", `translate(${height / 2}, ${width + 20})`);
 
     
     var obeseLabel = labelsGroupY.append("text")
@@ -284,13 +284,13 @@ d3.csv("data/data").then(function(data, err) {
         .text("# Lacks Healthcare");
 
 
-    chartGroup.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
-        .attr("x", 0 - (height / 2))
-        .attr("dy", "1em")
-        .classed("axis-text", true)
-        .text();
+    // chartGroup.append("text")
+    //     .attr("transform", "rotate(-90)")
+    //     .attr("y", 0 - margin.left)
+    //     .attr("x", 0 - (height / 2))
+    //     .attr("dy", "1em")
+    //     .classed("axis-text", true)
+    //     .text();
 
     // updating tool tips for x and y 
     var circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
