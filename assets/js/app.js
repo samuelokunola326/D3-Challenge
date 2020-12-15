@@ -443,16 +443,9 @@ d3.csv("data/data").then(function(data, err) {
 
 
         });
-
-
-
-
     
-
-
-   
-
-
+}).catch(function(error) {
+    console.log(error)
 });
 
 
