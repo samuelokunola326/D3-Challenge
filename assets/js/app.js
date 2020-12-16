@@ -117,7 +117,7 @@ function updateToolTipX(chosenAxisX, circlesGroup) {
     var label;
 
     if (chosenAxisX === "poverty") {
-        label = "poverty";
+        label = "poverty"; 
     }
     else if (chosenAxisX === "Age") {
         label = "Age (Median)";
@@ -182,9 +182,16 @@ function updateToolTipY(chosenAxisY, circlesGroup) {
 }
 
 
-d3.csv("./assets/data/data.csv").then(function(data, err) {
+// d3.csv("assets/data/data.csv").then(function(data){
+//     console.log(data);
+//     console.log(data.poverty)
+//     //visualize(data);
+// });
+
+d3.csv("assets/data/data.csv").then(function(data, err) {
     if (err) throw err;
 
+    console.log(data.poverty)
 
     data.forEach(function(data) {
         data.poverty = +data.poverty;
@@ -193,9 +200,12 @@ d3.csv("./assets/data/data.csv").then(function(data, err) {
         data.obesity = +data.obesity
         data.smokes = +data.smokes
         data.heathcare = +data.heathcare
- 
+
     });
 
+    // console.log(data.poverty)
+
+    
 
     var xLinearScale = xScale(data, chosenAxisX);
     var yLinearScale = yScale(data, chosenAxisY);
@@ -213,7 +223,7 @@ d3.csv("./assets/data/data.csv").then(function(data, err) {
 
     var yAxis = chartGroup.append("g")
         .classed("y-axis", true)
-        .attr("transform", `translate(${width}, 0)`)
+        .attr("transform", `translate(${width * 0}, 0)`)
         .call(leftAxis);
 
 
