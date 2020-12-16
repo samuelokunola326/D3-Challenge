@@ -217,13 +217,13 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
 
     var xAxis = chartGroup.append("g")
         .classed("x-axis", true)
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(80, ${height + 20})`)
         .call(bottomAxis);
 
 
     var yAxis = chartGroup.append("g")
         .classed("y-axis", true)
-        .attr("transform", `translate(${width * 0}, 0)`)
+        .attr("transform", `translate(${width * 0 + 80}, 20)`)
         .call(leftAxis);
 
 
@@ -240,12 +240,12 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
 
         //  Create a group for x axis lables in order to makes some changes to them
     var labelsGroup = chartGroup.append("g")
-        .attr("transform", `translate(${width / 2}, ${height + 20})`);
+        .attr("transform", `translate(${width / 1.80}, ${height + 20})`);
 
     
     var povertyLabel = labelsGroup.append("text")
         .attr("x", 0)
-        .attr("y", 20)
+        .attr("y", 40)
         .attr("value", "poverty")
         .classed("active", true)
         .text("# poverty %");
@@ -253,14 +253,14 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
 
     var ageLabel = labelsGroup.append("text")
         .attr("x", 0)
-        .attr("y", 40)
+        .attr("y", 60)
         .attr("value", "age")
         .classed("inactive", true)
         .text("# Median Age");
 
     var houseIncomeLabel = labelsGroup.append("text")
         .attr("x", 0)
-        .attr("y", 60)
+        .attr("y", 80)
         .attr("value", "income")
         .classed("inactive", true)
         .text("# Median Income");
@@ -268,39 +268,42 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
     
     //  Create a group for y axis lables in order to makes some changes to them
     var labelsGroupY = chartGroup.append("g")
-        .attr("transform", `translate(${height / 2}, ${width + 20})`);
+        .attr("transform", `translate(${height * 0}, ${width / 3})`);
 
     
     var obeseLabel = labelsGroupY.append("text")
-        .attr("x", 20)
+        .attr("x", 40)
         .attr("y", 0)
+        .attr("transform", "rotate(-90)")
         .attr("value", "obesity")
         .classed("active", true)
-        .text("# Obese %");
+        .text("# Obese");
 
 
     var smokesLabel = labelsGroupY.append("text")
         .attr("x", 40)
-        .attr("y", 0)
+        .attr("y", 20)
+        .attr("transform", "rotate(-90)")
         .attr("value", "smokes")
         .classed("inactive", true)
         .text("# Smokes");
 
     var healthcareLabel = labelsGroupY.append("text")
         .attr("x", 60)
-        .attr("y", 0)
+        .attr("y", 40)
+        .attr("transform", "rotate(-90)")
         .attr("value", "healthcare")
         .classed("inactive", true)
         .text("# Lacks Healthcare");
 
-
-    chartGroup.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
-        .attr("x", 0 - (height / 2))
-        .attr("dy", "1em")
-        .classed("axis-text", true)
-        .text();
+        // delete
+    // chartGroup.append("text")
+    //     .attr("transform", "rotate(-90)")
+    //     .attr("y", 0 - margin.left)
+    //     .attr("x", 0 - (height / 2))
+    //     .attr("dy", "1em")
+    //     .classed("axis-text", true)
+    //     .text();
 
     // updating tool tips for x and y 
     var circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
