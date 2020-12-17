@@ -149,23 +149,23 @@ function updateToolTipX(chosenAxisX, circlesGroup) {
 
 function updateToolTipY(chosenAxisY, circlesGroup) {
 
-    var label;
+    var labelY;
 
     if (chosenAxisY === "obesity") {
-        label = "Obese";
+        labelY = "Obese";
     }
     else if (chosenAxisY === "Smokes") {
-        label = "Smokes";
+        labelY = "Smokes";
     }
     else {
-        label = " Lacks Healthcare";
+        labelY = " Lacks Healthcare";
     }
 
     var toolTip = d3.tip()
         .attr("class", "d3-tip")
         .offset([80, -60])
         .html(function(d) {
-            return (`${d.state}<br>${label} ${d[chosenAxisY]}`)
+            return (`${d.state}<br>${labelY} ${d[chosenAxisY]}`)
         });
 
     circlesGroup.call(toolTip);
@@ -191,7 +191,7 @@ function updateToolTipY(chosenAxisY, circlesGroup) {
 d3.csv("assets/data/data.csv").then(function(data, err) {
     if (err) throw err;
 
-    console.log(data.poverty)
+    
 
     data.forEach(function(data) {
         data.poverty = +data.poverty;
@@ -231,7 +231,8 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .data(data)
         .enter()
         .append("circle")
-        .append("text", d => text(d.abbr))
+        // .attr("transform", `translate(${width / 1.80}, ${height + 20})`)
+        // .append("text", d => text(d.abbr))
         .attr("cx", d => xLinearScale(d[chosenAxisX]))
         .attr("cy", d => yLinearScale(d[chosenAxisY]))
         .attr("r", 10)
@@ -297,7 +298,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .text("# Lacks Healthcare");
 
         // delete
-    // chartGroup.append("text")
+    // chartGroup.append("text") 
     //     .attr("transform", "rotate(-90)")
     //     .attr("y", 0 - margin.left)
     //     .attr("x", 0 - (height / 2))
