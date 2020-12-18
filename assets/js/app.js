@@ -37,7 +37,7 @@ var chartGroup = svg.append("g")
 
 var chosenAxisX = "poverty";
 
-var chosenAxisY = "obese";
+var chosenAxisY = "obesity";
 
 
 // fuction used to transition x axis with clicks
@@ -105,7 +105,7 @@ function renderCirclesX(circlesGroup, newXScale, chosenAxisX) {
 function renderCirclesY(circlesGroup, newYScale, chosenAxisY) {
     circlesGroup.transition()
         .duration(1000)
-        .attr("cx", d => newYScale(d[chosenAxisY]));
+        .attr("cy", d => newYScale(d[chosenAxisY]));
 
     return circlesGroup;
 }
