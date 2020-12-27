@@ -24,7 +24,8 @@ var svg = d3
 .select("#scatter")
 .append("svg")
 .attr("width", svgWidth)
-.attr("height", svgHeight);
+.attr("height", svgHeight)
+.attr("class", "chart");
 
 
 // append svg group to chart element and set chart placement
@@ -92,6 +93,8 @@ function renderYAxes(newYScale, yAxis) {
     return yAxis
 }
 
+
+
 // creating a function that renders circles to be redrawn for both x and y axis
 
 function renderCirclesX(circlesGroup, newXScale, chosenAxisX) {
@@ -112,7 +115,7 @@ function renderCirclesY(circlesGroup, newYScale, chosenAxisY) {
 
 // Function used to update tool tips
 
-function updateToolTipX(chosenAxisX, circlesGroup) {
+function updateToolTip(chosenAxisX, chosenAxisY, circlesGroup) {
 
     var label;
 
@@ -125,29 +128,6 @@ function updateToolTipX(chosenAxisX, circlesGroup) {
     else {
         label = "Household Income (Median)";
     }
-
-    var toolTip = d3.tip()
-        .attr("class", "d3-tip")
-        .offset([80, -60])
-        .html(function(d) {
-            return (`${d.state}<br>${label} ${d[chosenAxisX]}`)
-        });
-
-    circlesGroup.call(toolTip);
-
-    circlesGroup.on("mouseover", function(data) {
-        toolTip.show(data);
-    })
-
-        .on("mouseout", function(data, index) {
-            toolTip.hide(data);
-        });
-
-    return circlesGroup;
-}
-
-
-function updateToolTipY(chosenAxisY, circlesGroup) {
 
     var labelY;
 
@@ -165,7 +145,7 @@ function updateToolTipY(chosenAxisY, circlesGroup) {
         .attr("class", "d3-tip")
         .offset([80, -60])
         .html(function(d) {
-            return (`${d.state}<br>${labelY} ${d[chosenAxisY]}`)
+            return (`${d.state}<br>${chosenAxisX} ${d[chosenAxisX]}<br>${chosenAxisY} ${d[chosenAxisY]}`)
         });
 
     circlesGroup.call(toolTip);
@@ -182,11 +162,6 @@ function updateToolTipY(chosenAxisY, circlesGroup) {
 }
 
 
-// d3.csv("assets/data/data.csv").then(function(data){
-//     console.log(data);
-//     console.log(data.poverty)
-//     //visualize(data);
-// });
 
 d3.csv("assets/data/data.csv").then(function(data, err) {
     if (err) throw err;
@@ -203,9 +178,6 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
 
     });
 
-    // console.log(data.poverty)
-
-    
 
     var xLinearScale = xScale(data, chosenAxisX);
     var yLinearScale = yScale(data, chosenAxisY);
@@ -231,13 +203,17 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .data(data)
         .enter()
         .append("circle")
+        .attr("class", "d3-tip")
         // .attr("transform", `translate(${width / 1.80}, ${height + 20})`)
         // .append("text", d => text(d.abbr))
         .attr("cx", d => xLinearScale(d[chosenAxisX]))
         .attr("cy", d => yLinearScale(d[chosenAxisY]))
         .attr("r", 10)
         .attr("fill", "blue")
-        .attr("opacity", ".3");
+        .attr("opacity", ".3")
+        
+      
+      
 
         //  Create a group for x axis lables in order to makes some changes to them
     var labelsGroup = chartGroup.append("g")
@@ -249,15 +225,14 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .attr("y", 40)
         .attr("value", "poverty")
         .classed("active", true)
-        .text("# poverty %");
+        .text("Poverty (%)");
 
 
     var ageLabel = labelsGroup.append("text")
-        .attr("x", 0)
         .attr("y", 60)
         .attr("value", "age")
         .classed("inactive", true)
-        .text("# Median Age");
+        .text("Age (Median)");
 
     var houseIncomeLabel = labelsGroup.append("text")
         .attr("x", 0)
@@ -297,18 +272,11 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .classed("inactive", true)
         .text("# Lacks Healthcare");
 
-        // delete
-    // chartGroup.append("text") 
-    //     .attr("transform", "rotate(-90)")
-    //     .attr("y", 0 - margin.left)
-    //     .attr("x", 0 - (height / 2))
-    //     .attr("dy", "1em")
-    //     .classed("axis-text", true)
-    //     .text();
+   
 
     // updating tool tips for x and y 
-    var circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
-    var circlesGroup = updateToolTipY(chosenAxisY, circlesGroup);
+    var circlesGroup = updateToolTip(chosenAxisX, chosenAxisY, circlesGroup);
+    // var circlesGroup = updateToolTipY(chosenAxisY, circlesGroup);
 
     labelsGroup.selectAll("text")
         .on("click", function() {
@@ -328,7 +296,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
                 circlesGroup = renderCirclesX(circlesGroup, xLinearScale, chosenAxisX);
 
                 // update tool tips with new info 
-                circlesGroup = updateToolTipX(chosenAxisX, circlesGroup);
+                circlesGroup = updateToolTip(chosenAxisX, chosenAxisY, circlesGroup);
 
                 if(chosenAxisX === "age") {
                     
@@ -400,7 +368,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
                 circlesGroup = renderCirclesY(circlesGroup, yLinearScale, chosenAxisY);
 
                 // update tool tips with new info 
-                circlesGroup = updateToolTipY(chosenAxisY, circlesGroup);
+                circlesGroup = updateToolTip(chosenAxisY, chosenAxisX, circlesGroup);
 
 
                 if(chosenAxisY === "smokes") {
