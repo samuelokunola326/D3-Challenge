@@ -1,7 +1,7 @@
 // establishing svg width and height 
 
-var svgWidth = 1000;
-var svgHeight = 600;
+var svgWidth = 1100;
+var svgHeight = 700;
 
 // setting margin for the svg element 
 
@@ -113,6 +113,17 @@ function renderCirclesY(circlesGroup, newYScale, chosenAxisY) {
     return circlesGroup;
 }
 
+// creating tooltip 
+var toolTip = d3.tip()
+.attr("class", "d3-tip")
+.offset([80, -60])
+.html(function(d) {
+    return (`${d.state}<br>${chosenAxisX} : ${d[chosenAxisX]}<br>${chosenAxisY} : ${d[chosenAxisY]}`)
+});
+
+
+
+
 // Function used to update tool tips
 
 function updateToolTip(chosenAxisX, chosenAxisY, circlesGroup) {
@@ -138,15 +149,8 @@ function updateToolTip(chosenAxisX, chosenAxisY, circlesGroup) {
         labelY = "Smokes";
     }
     else {
-        labelY = " Lacks Healthcare";
+        labelY = "Lacks Healthcare";
     }
-
-    var toolTip = d3.tip()
-        .attr("class", "d3-tip")
-        .offset([80, -60])
-        .html(function(d) {
-            return (`${d.state}<br>${chosenAxisX} ${d[chosenAxisX]}<br>${chosenAxisY} ${d[chosenAxisY]}`)
-        });
 
     circlesGroup.call(toolTip);
 
@@ -199,18 +203,55 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .call(leftAxis);
 
 
-    var circlesGroup = chartGroup.selectAll("circle")
+    var circlesGroup = chartGroup.selectAll("g circleGroup")
         .data(data)
         .enter()
         .append("circle")
-        .attr("class", "d3-tip")
-        // .attr("transform", `translate(${width / 1.80}, ${height + 20})`)
-        // .append("text", d => text(d.abbr))
+        // .attr("class", "d3-tip")
         .attr("cx", d => xLinearScale(d[chosenAxisX]))
         .attr("cy", d => yLinearScale(d[chosenAxisY]))
         .attr("r", 10)
         .attr("fill", "blue")
         .attr("opacity", ".3")
+        .on("mouseover", function(d) {
+            // Show the tooltip
+            toolTip.show(d, this);
+            // Highlight the state circle's border
+            // d3.select("." + d.abbr).style("stroke", "#323232");
+        })
+        .on("mouseout", function(d) {
+            // Remove tooltip
+            toolTip.hide(d);
+            // Remove highlight
+            // d3.select("." + d.abbr).style("stroke", "#e3e3e3");
+        })
+        // .append("text")
+        
+      
+        
+
+
+
+    circlesGroup.append("text").text(function(d) {
+        // We return the abbreviation to .text, which makes the text the abbreviation.
+        return d.abbr;
+        })
+        .attr("class", "stateText")
+        // Hover Rules
+        .on("mouseover", function(d) {
+        // Show the tooltip
+        toolTip.show(d, this);
+        // Highlight the state circle's border
+        d3.select("." + d.abbr).style("stroke", "#323232");
+        })
+        .on("mouseout", function(d) {
+        // Remove tooltip
+        toolTip.hide(d);
+        // Remove highlight
+        d3.select("." + d.abbr).style("stroke", "#e3e3e3");
+        });
+
+
         
       
       
@@ -239,7 +280,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .attr("y", 80)
         .attr("value", "income")
         .classed("inactive", true)
-        .text("# Median Income");
+        .text("Median Income (Median)");
 
     
     //  Create a group for y axis lables in order to makes some changes to them
@@ -253,7 +294,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .attr("transform", "rotate(-90)")
         .attr("value", "obesity")
         .classed("active", true)
-        .text("# Obese");
+        .text("Obese (%)");
 
 
     var smokesLabel = labelsGroupY.append("text")
@@ -262,7 +303,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .attr("transform", "rotate(-90)")
         .attr("value", "smokes")
         .classed("inactive", true)
-        .text("# Smokes");
+        .text("Smokes (%)");
 
     var healthcareLabel = labelsGroupY.append("text")
         .attr("x", 60)
@@ -270,7 +311,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .attr("transform", "rotate(-90)")
         .attr("value", "healthcare")
         .classed("inactive", true)
-        .text("# Lacks Healthcare");
+        .text("Lacks Healthcare (%)");
 
    
 
