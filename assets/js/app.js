@@ -60,10 +60,9 @@ function xScale(data, chosenAxisX) {
 function yScale(data, chosenAxisY) {
     
     var yLinearScale = d3.scaleLinear()
-        .domain([d3.min(data, d => d[chosenAxisY]) *.8,
-        d3.max(data, d => d[chosenAxisY]) * 1.2
+        .domain(d3.extent(data, d => d[chosenAxisY])
 
-        ])
+        )
         .range([height, 0]);
     
     return yLinearScale
@@ -178,7 +177,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         data.income = +data.income
         data.obesity = +data.obesity
         data.smokes = +data.smokes
-        data.heathcare = +data.heathcare
+        data.healthcare = +data.healthcare
 
     });
 
@@ -213,6 +212,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .attr("r", 10)
         .attr("fill", "blue")
         .attr("opacity", ".3")
+        
        
         
       
