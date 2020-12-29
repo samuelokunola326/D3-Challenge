@@ -117,7 +117,15 @@ var toolTip = d3.tip()
 .attr("class", "d3-tip")
 .offset([80, -60])
 .html(function(d) {
-    return (`${d.state}<br>${chosenAxisX} : ${d[chosenAxisX]}<br>${chosenAxisY} : ${d[chosenAxisY]}`)
+
+    if (chosenAxisX === "poverty") {
+        x = `${d[chosenAxisX]}%`
+        
+    }
+    else {
+        x = `${parseFloat(d[chosenAxisX]).toLocaleString("en")}`
+    }
+    return (`${d.state}<br>${chosenAxisX} : ${x}<br>${chosenAxisY} : ${d[chosenAxisY]}%`)
 });
 
 
