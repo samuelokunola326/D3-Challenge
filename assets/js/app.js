@@ -155,7 +155,7 @@ function updateToolTip(chosenAxisX, chosenAxisY, circlesGroup) {
     circlesGroup.call(toolTip);
 
     circlesGroup.on("mouseover", function(data) {
-        toolTip.show(data);
+        toolTip.show(data, this)
     })
 
         .on("mouseout", function(data, index) {
@@ -213,19 +213,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .attr("r", 10)
         .attr("fill", "blue")
         .attr("opacity", ".3")
-        .on("mouseover", function(d) {
-            // Show the tooltip
-            toolTip.show(d, this);
-            // Highlight the state circle's border
-            // d3.select("." + d.abbr).style("stroke", "#323232");
-        })
-        .on("mouseout", function(d) {
-            // Remove tooltip
-            toolTip.hide(d);
-            // Remove highlight
-            // d3.select("." + d.abbr).style("stroke", "#e3e3e3");
-        })
-        // .append("text")
+       
         
       
         
