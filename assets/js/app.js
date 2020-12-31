@@ -188,47 +188,58 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
         .call(leftAxis);
 
 
+
+var circRadius;
+function crGet() {
+  if (width <= 530) {
+    circRadius = 5;
+  }
+  else {
+    circRadius = 10;
+  }
+}
+crGet();
+
+// creating circles 
     var circlesGroup = chartGroup.selectAll("g circleGroup")
         .data(data)
         .enter()
         .append("circle")
-        // .attr("class", "d3-tip")
         .attr("cx", d => xLinearScale(d[chosenAxisX]))
         .attr("cy", d => yLinearScale(d[chosenAxisY]))
-        .attr("r", 10)
-        .attr("fill", "blue")
-        .attr("opacity", ".3")
-        
-       
-        
-      
-        
+        .attr("r", circRadius)
+        .attr("class", function(d) {
+            return "stateCircle " + d.abbr;
+          })
+        .attr("opacity", ".5")
 
 
 
-    circlesGroup.append("text").text(function(d) {
-        // We return the abbreviation to .text, which makes the text the abbreviation.
-        return d.abbr;
+        chartGroup.selectAll("g circleGroup")
+        .data(data)
+        .enter()
+        .append("text")
+    // We return the abbreviation to .text, which makes the text the abbreviation.
+        .text(function(d) {
+            return d.abbr;
         })
+        // Now place the text using our scale.
+        .attr("dx", function(d) {
+        return xLinearScale(d[chosenAxisX]);
+        })
+        .attr("dy", function(d) {
+        // When the size of the text is the radius,
+        // adding a third of the radius to the height
+        // pushes it into the middle of the circle.
+        return yLinearScale(d[chosenAxisY]) + circRadius / 2.5;
+        })
+        .attr("font-size", circRadius)
         .attr("class", "stateText")
-        // Hover Rules
-        .on("mouseover", function(d) {
-        // Show the tooltip
-        toolTip.show(d, this);
-        // Highlight the state circle's border
-        d3.select("." + d.abbr).style("stroke", "#323232");
-        })
-        .on("mouseout", function(d) {
-        // Remove tooltip
-        toolTip.hide(d);
-        // Remove highlight
-        d3.select("." + d.abbr).style("stroke", "#e3e3e3");
-        });
 
 
         
-      
-      
+        
+
 
         //  Create a group for x axis lables in order to makes some changes to them
     var labelsGroup = chartGroup.append("g")
