@@ -324,6 +324,18 @@ crGet();
                 // update tool tips with new info 
                 circlesGroup = updateToolTip(chosenAxisX, chosenAxisY, circlesGroup);
 
+                d3.selectAll(".stateText").each(function() {
+                    // We give each state text the same motion tween as the matching circle.
+                    d3
+                      .select(this)
+                      .transition()
+                      .attr("dx", function(d) {
+                        return xLinearScale(d[chosenAxisX]);
+                      })
+                      .duration(300);
+                  });
+          
+
                 if(chosenAxisX === "age") {
                     
                     // setting font to bold based on what is clicked
@@ -395,6 +407,17 @@ crGet();
 
                 // update tool tips with new info 
                 circlesGroup = updateToolTip(chosenAxisY, chosenAxisX, circlesGroup);
+
+                d3.selectAll(".stateText").each(function() {
+                    // We give each state text the same motion tween as the matching circle.
+                    d3
+                      .select(this)
+                      .transition()
+                      .attr("dy", function(d) {
+                        return yLinearScale(d[chosenAxisY]);
+                      })
+                      .duration(300);
+                  });
 
 
                 if(chosenAxisY === "smokes") {
