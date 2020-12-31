@@ -9,7 +9,7 @@ var margin = {
     top: 20,
     right: 40,
     bottom: 80,
-    left: 100,
+    left: 120,
 };
 
 
@@ -41,7 +41,7 @@ var chosenAxisX = "poverty";
 var chosenAxisY = "obesity";
 
 
-// fuction used to transition x axis with clicks
+// function used to create the scales for x  and y axis with dynamically
 
 function xScale(data, chosenAxisX) { 
     
@@ -60,9 +60,10 @@ function xScale(data, chosenAxisX) {
 function yScale(data, chosenAxisY) {
     
     var yLinearScale = d3.scaleLinear()
-        .domain(d3.extent(data, d => d[chosenAxisY])
+        .domain([d3.min(data, d => d[chosenAxisY]) *.8,
+        d3.max(data, d => d[chosenAxisY]) * 1.2
 
-        )
+        ])
         .range([height, 0]);
     
     return yLinearScale
@@ -112,7 +113,7 @@ function renderCirclesY(circlesGroup, newYScale, chosenAxisY) {
     return circlesGroup;
 }
 
-// creating tooltip 
+// creating tooltip and formatting tool tip data
 var toolTip = d3.tip()
 .attr("class", "d3-tip")
 .offset([80, -60])
@@ -151,11 +152,11 @@ function updateToolTip(chosenAxisX, chosenAxisY, circlesGroup) {
 }
 
 
-
+// importing dataset 
 d3.csv("assets/data/data.csv").then(function(data, err) {
     if (err) throw err;
 
-    
+    // mutating data imported from srings to integers 
 
     data.forEach(function(data) {
         data.poverty = +data.poverty;
@@ -167,7 +168,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
 
     });
 
-
+// init call to scale data with default options 
     var xLinearScale = xScale(data, chosenAxisX);
     var yLinearScale = yScale(data, chosenAxisY);
 
@@ -175,20 +176,20 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
-
+// add x axis to chart group and place at bottom of chart 
     var xAxis = chartGroup.append("g")
         .classed("x-axis", true)
         .attr("transform", `translate(80, ${height + 20})`)
         .call(bottomAxis);
 
-
+// add y axis to chart group and place to the left of chart 
     var yAxis = chartGroup.append("g")
         .classed("y-axis", true)
         .attr("transform", `translate(${width * 0 + 80}, 20)`)
         .call(leftAxis);
 
 
-
+// creating a function for the radius of the circle 
 var circRadius;
 function crGet() {
   if (width <= 530) {
@@ -214,7 +215,7 @@ crGet();
         .attr("opacity", ".5")
 
 
-
+        //   appendding state abbr to circles 
         chartGroup.selectAll("g circleGroup")
         .data(data)
         .enter()
@@ -236,9 +237,6 @@ crGet();
         .attr("font-size", circRadius)
         .attr("class", "stateText")
 
-
-        
-        
 
 
         //  Create a group for x axis lables in order to makes some changes to them
@@ -332,7 +330,7 @@ crGet();
                       .attr("dx", function(d) {
                         return xLinearScale(d[chosenAxisX]);
                       })
-                      .duration(300);
+                      .duration(1000);
                   });
           
 
@@ -416,7 +414,7 @@ crGet();
                       .attr("dy", function(d) {
                         return yLinearScale(d[chosenAxisY]);
                       })
-                      .duration(300);
+                      .duration(1000);
                   });
 
 
